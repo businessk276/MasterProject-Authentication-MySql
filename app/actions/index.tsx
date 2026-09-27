@@ -93,7 +93,7 @@ export async function deleteUser(formData: FormData) {
     where: { id: userId },
     select: { email: true },
   });
-  if (!target || target.email.toLowerCase() === adminEmail) return;
+  if (!target || target.email?.toLowerCase() === adminEmail) return;
 
   await prisma.$transaction(async (transaction) => {
     await transaction.profile.deleteMany({ where: { userId } });

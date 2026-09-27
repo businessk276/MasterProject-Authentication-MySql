@@ -72,7 +72,9 @@ export default async function HomePage() {
             </thead>
             <tbody>
               {users.map((user) => {
-                const isCurrentUser = user.email.toLowerCase() === currentEmail;
+                const isCurrentUser = Boolean(
+                  user.email && user.email.toLowerCase() === currentEmail,
+                );
 
                 return (
                   <tr key={user.id}>
@@ -85,11 +87,13 @@ export default async function HomePage() {
                         {isCurrentUser && <span className="you-label">You</span>}
                       </div>
                     </td>
-                    <td data-label="Email address" className="member-email">{user.email}</td>
+                    <td data-label="Email address" className="member-email">
+                      {user.email ?? "Not provided"}
+                    </td>
                     <td data-label="Status"><span className="member-status"><span /> Active</span></td>
                     {isAdmin && (
                       <td data-label="Actions" className="member-actions">
-                        {!isCurrentUser && user.email.toLowerCase() !== process.env.ADMIN_EMAIL?.trim().toLowerCase() ? (
+                        {!isCurrentUser && user.email?.toLowerCase() !== process.env.ADMIN_EMAIL?.trim().toLowerCase() ? (
                           <form action={deleteUser}>
                             <input type="hidden" name="userId" value={user.id} />
                             <button className="delete-user-button" type="submit" aria-label={`Delete ${user.name}`}>
