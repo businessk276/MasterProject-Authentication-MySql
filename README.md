@@ -14,7 +14,11 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to view the signed-in user directory. Sign in and signup are available at [http://localhost:3000/login](http://localhost:3000/login).
+
+## User Directory Administration
+
+The `/home` page lists accounts stored in the Prisma `User` table. To enable deletion controls, add an `ADMIN_EMAIL` value to `.env` matching the email address of the administrator's account. Only that account can delete other users, and the configured administrator account cannot be deleted from the directory.
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
